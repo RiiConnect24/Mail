@@ -2,11 +2,11 @@
 header('Content-Type: text/plain;charset=utf-8');
 
 function genPassword($mode, $length) {
-    if ($mode == 2) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    }
     if ($mode == 1) {
         $characters = '0123456789abcdef';
+    }
+    if ($mode == 2) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     }
     $string = '';
     for ($p = 0; $p < $length; $p++) {
