@@ -12,7 +12,7 @@ Pruning scripts are in `clean` folder. Run these every so often.
 3. Import the schema, and run the scripts on your server - see below for replacing.
 
 # Replacements
-## send.php
+## send.php
 - `SENDGRIDAPIKEY` - Self-explanatory
 - `YOURDOMAIN` - the domain you patch in nwc24msg.cfg (for validation)
 ## mysql.php
@@ -24,7 +24,7 @@ Pruning scripts are in `clean` folder. Run these every so often.
 - Larsenv for being whiny as usual, and whining when it didn't work.
 - PokeAcer for losing his morality and his depressive bouts making him see reason.
 
-# Help Out!
+# Help Out!
 Want to help out? ~~You're stupid~~
 - The Mail system has _no_ security, we need security.
 - Automatic patcher for server(s).
