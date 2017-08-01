@@ -25,3 +25,4 @@ echo("interval=10");
 * If we use delete properly, it lets us off with receive.php sending *every single mail in the server* to the Wii
 * The Wii can just say "delete x mail" instead of deleting all.
 */
+?>

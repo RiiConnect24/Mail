@@ -23,9 +23,9 @@ $stmt = $db->prepare('SELECT * FROM `mails` WHERE `recipient_id` = ? AND `sent` 
 
 $mailnum = count($mails2);
 if($mailnum < 1) {
-$mailsize = 0;
+	$mailsize = 0;
 } else {
-$mailsize = 1000000;
+	$mailsize = 1000000;
 }
 
 $wc24mimebounary = "BoundaryForDL" . date("YmdHi") . "/" . rand(1000000, 9999999);

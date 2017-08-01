@@ -15,9 +15,7 @@ function genPassword($mode, $length) {
     return $string;
 }
 
-$passwd = genPassword(2, 16);
-$mlchkid = genPassword(1, 16);
-$debug = true;
+$debug = false;
 
 if ($debug) {
     try {
@@ -48,5 +46,6 @@ echo("\n");
 echo("cd=100\n");
 echo("msg=success\n");
 echo("mlid=" . $_REQUEST['mlid'] . "\n");
-echo("passwd=" . $passwd . "\n");
-echo("mlchkid=" . $mlchkid . "\n");
+echo("passwd=" . genPassword(2, 16) . "\n");
+echo("mlchkid=" . genPassword(1, 16) . "\n");
+?>
