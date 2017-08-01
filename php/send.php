@@ -14,9 +14,9 @@ function generate_UUID() {
 
     $debug = false;
 
-    if (!(substr($_SERVER['HTTP_USER_AGENT'], 0, 12) === "WiiConnect24")) {
+    /*if (!(substr($_SERVER['HTTP_USER_AGENT'], 0, 12) === "WiiConnect24")) {
         //exit();
-    }
+    }*/
 
     if ($debug) {
         try {
