@@ -3,7 +3,6 @@ $noredir = true; // Stop redirection
 
 //Include the Mail lib; $interval is set here for easy access
 include 'mysql/mail.php';
-$checkInterval = interval($_REQUEST['mlchkid']);
 
 header('Content-Type: text/plain;charset=utf-8');
 header("X-Wii-Mail-Download-Span: ".$interval);
@@ -30,5 +29,5 @@ echo("cd=" . "100" . "\n");
 echo("msg=" . "Success" . "\n");
 echo("res=" . generateRandomString(40, 2) . "\n");
 echo("mail.flag=" . generateRandomString(33, 1) . "\n");
-echo("interval=".$checkInterval."\n");
+echo("interval="."5"."\n");
 ?>
