@@ -14,28 +14,9 @@ function generate_UUID() {
 
     header('Content-Type: text/plain;charset=utf-8');
 
-    $debug = false;
-
     /*if (!(substr($_SERVER['HTTP_USER_AGENT'], 0, 12) === "WiiConnect24")) {
         //exit();
     }*/
-
-    if ($debug) {
-        try {
-            $logfile = fopen("logs/send.txt", "a+");
-            fwrite($logfile, "--START MESSAGE--\n");
-            foreach (getallheaders() as $name => $value) {
-                fwrite($logfile, "$name: $value\n");
-            }
-            foreach ($_POST as $key => $value) {
-                fwrite($logfile, $key . ": \n" . $value . "\n");
-            }
-            fwrite($logfile, "--END MESSAGE--\n\n");
-            fclose($logfile);
-        } catch (Exception $e) {
-            error_log('Error logging to logs/send.txt');
-        }
-    }
 
     //WiiID =
     //echo
@@ -74,7 +55,7 @@ function generate_UUID() {
             if(preg_match("/^RCPT TO:\s(.*)@(.*)$/", $line, $matches)) { // (allusers|w[0-9]*) matches allusers and wXXXX
                 /* I'm matching allusers in the regex in case you want to handle that specially in the future */
                 //error_log($line);
-                if($matches[2] != 'YOURDOMAIN'){
+                if($matches[2] != $domain){
                     //error_log('pc email detected');
                     //error_log(json_encode($matches));
                     $pcTo[] = $matches[1].'@'.$matches[2];
@@ -131,7 +112,6 @@ function generate_UUID() {
             //error_log('pc emails will be sent');
             $smtpServer = 'smtp.sendgrid.net';
             $username = 'apikey'; // YXBpa2V5
-            $password = 'SENDGRIDAPIKEY';
             $newLine = "\r\n";
             $port = 25;
             $timeout = 45;
