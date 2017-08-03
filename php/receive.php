@@ -2,7 +2,7 @@
 	include "mysql.php"; // Load MySQL.
 	$db = connectMySQL();
 	$headers = getallheaders(); // Only works on apache2
-	$mlid = substr($_POST['mlid'], 1); //mlid = Member Login ID.
+	$mlid = substr($_POST['mlid'], 1); //mlid = Mail ID.
 
 $stmt = $db->prepare('SELECT * FROM `mails` WHERE `recipient_id` = ? AND `sent` = 0 ORDER BY `timestamp` ASC');
     if(!$stmt):
