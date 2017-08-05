@@ -1,6 +1,7 @@
 <?php
 
 mb_internal_encoding('utf-8');
+
 function generate_UUID() { /* jsa was here */
         return str_replace(
                 array('+','/','='),
