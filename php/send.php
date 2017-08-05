@@ -22,7 +22,7 @@ function generate_UUID() {
     //echo
 
     // MySQL stuff
-    include "mysql.php"; // Time for MySQL!
+    include "mysql/mail.php"; // Time for MySQL!
     $db = connectMySQL();
 
     /*

@@ -15,19 +15,7 @@ function genPassword($mode, $length) {
     return $string;
 }
 
-$debug = false;
-
-if ($debug) {
-    try {
-        $logfile = fopen("logs/account.txt", "a+");
-        fwrite($logfile, "--START ACCOUNT--\nmlid=" . $_REQUEST['mlid'] . "\npasswd=" . $passwd . "\nmlchkid=" . $mlchkid . "\n--END ACCOUNT--\n\n");
-        fclose($logfile);
-    } catch (Exception $e) {
-
-    }
-}
-
-include "mysql.php"; // Time for MySQL.
+include "mysql/mail.php"; // Time for MySQL.
 $db = connectMySQL();
 
         $stmt = $db->prepare('INSERT IGNORE INTO `accounts` (`mlid`,

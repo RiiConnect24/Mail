@@ -5,7 +5,7 @@ $debug = true;
 header('Content-Type: text/plain;charset=utf-8');
 $headers = apache_request_headers();
 
-require 'mysql.php'; //Load MySQL
+require 'mysql/mail.php'; //Load MySQL
 $db = connectMySQL();
 
 $wii_id = substr($_POST['mlid'], 1);
