@@ -29,7 +29,7 @@ $body = array([
 ]);
 $mail = imap_mail_compose($envelope, $body);
 
-include "php/mysql/mail.php"; // MySQL, remember!
+include "../php/mysql/mail.php"; // MySQL, remember!
 
 //DEBUG
 $db = connectMySQL();
