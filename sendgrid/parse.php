@@ -25,7 +25,7 @@ $body = array([
     'type' => TYPETEXT,
     'subtype' => 'plain',
     'description' => 'wiimail',
-    'contents.data' => $_POST['content']['value']
+    'contents.data' => $_POST['text']
 ]);
 $mail = imap_mail_compose($envelope, $body);
 
