@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'config/config.php'; // Config + MySQL
 
 mb_internal_encoding('utf-8');
 
@@ -14,15 +14,7 @@ function generate_UUID() {
 
     header('Content-Type: text/plain;charset=utf-8');
 
-    /*if (!(substr($_SERVER['HTTP_USER_AGENT'], 0, 12) === "WiiConnect24")) {
-        //exit();
-    }*/
-
-    //WiiID =
-    //echo
-
     // MySQL stuff
-    include "mysql/mail.php"; // Time for MySQL!
     $db = connectMySQL();
 
     /*

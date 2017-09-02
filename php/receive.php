@@ -1,5 +1,5 @@
 <?php
-	include "mysql/mail.php"; // Load MySQL.
+	include "config/config.php"; // Load MySQL.
 	$db = connectMySQL();
 	$headers = getallheaders(); // Only works on apache2
 	$mlid = substr($_POST['mlid'], 1); //mlid = Mail ID.

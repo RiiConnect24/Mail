@@ -15,7 +15,7 @@ function genPassword($mode, $length) {
     return $string;
 }
 
-include "mysql/mail.php"; // Time for MySQL.
+include "config/config.php"; // Time for MySQL.
 $db = connectMySQL();
 
         $stmt = $db->prepare('INSERT IGNORE INTO `accounts` (`mlid`,

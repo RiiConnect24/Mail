@@ -2,7 +2,7 @@
 $noredir = true; // Stop redirection
 
 //Include the Mail lib.
-include 'mysql/mail.php';
+include 'config/config.php';
 
 header('Content-Type: text/plain;charset=utf-8');
 header("X-Wii-Mail-Download-Span: ".$interval);
