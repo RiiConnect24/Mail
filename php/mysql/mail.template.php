@@ -8,7 +8,7 @@ global $db;
 function connectMySQL(){
 global $db;
 
-if(!$db) $db = new mysqli('127.0.0.1', 'USERNAME', 'PASS', 'USERNAME');
+if(!$db) $db = new mysqli('127.0.0.1', 'USERNAME', 'PASS', 'DATABASE');
 return $db;
 }
 ?>
