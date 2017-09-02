@@ -29,5 +29,5 @@ echo("cd=" . "100" . "\n");
 echo("msg=" . "Success." . "\n");
 echo("res=" . generateRandomString(40, 2) . "\n");
 echo("mail.flag=" . generateRandomString(33, 1) . "\n");
-echo("interval="."5"."\n");
+echo("interval=". $interval ."\n");
 ?>
