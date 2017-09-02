@@ -2,9 +2,9 @@
 // This will change the interval any Wii connecting to your server will check. Min is 1min.
 $interval = 5;
 
-// API key for Sendgrid
+// API key for SendGrid
 $password = "changeme";
-// Verification domain for Sendgrid
+// Verification domain for SendGrid
 $domain = "my.domain";
 
 
