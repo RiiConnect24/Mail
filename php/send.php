@@ -111,7 +111,7 @@ function generate_UUID() {
         if(!empty($pcTo)) {
             //error_log('pc emails will be sent');
             $smtpServer = 'smtp.sendgrid.net';
-            $username = 'apikey'; // YXBpa2V5
+            $username = 'apikey';
             $newLine = "\r\n";
             $port = 25;
             $timeout = 45;
