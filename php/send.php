@@ -131,7 +131,8 @@ function generate_UUID() {
             // EHLO replaces HELO, but we don't support ESMTP
 
             //fputs($smtpConnect, "EHLO rc24.xyz". "\r\n");
-            //$smtpResponse = fgets($smtpConnect, 4096);error_log($smtpResponse);
+            //$smtpResponse = fgets($smtpConnect, 4096);
+            //error_log($smtpResponse);
             //$logArray['ehloresponse2'] = "$smtpResponse";
 
             //request for auth login
@@ -151,10 +152,6 @@ function generate_UUID() {
             fputs($smtpConnect, base64_encode($password) . "\r\n");
             $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
             $logArray['authpassword'] = "$smtpResponse";
-
-            //error_log("==== WII INPUT DATA START ====");
-            //error_log($mail);
-            //error_log("==== WII INPUT DATA END ====");
 
             //SMTP data from the Wii
             fputs($smtpConnect, $mail . "\r\n.\r\n");
