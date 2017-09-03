@@ -100,7 +100,7 @@ function generate_UUID() {
                 $success = 1;
             }else{
                 error_log('DATABASE ERROR ON cgi-bin/send.cgi - '.$stmt->error);
-                echo("cd=250\n");
+                echo("cd=450\n");
                 echo("msg=Database error.\n");
                 exit;
             }
