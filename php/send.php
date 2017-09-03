@@ -68,7 +68,7 @@ function generate_UUID() {
                 $from = $matches[1];
                 if($from == 'w9999999999990000') { /* sanity check; that's "Nintendo's special ID" according to PokeAcer */
                     error_log('w9999999999990000 tried to send mail, IP address: '.$_SERVER['REMOTE_ADDR']);
-                    echo("cd=450\n");
+                    echo("cd=351\n");
                     echo("msg=w9999999999990000 tried to send mail.\n");
                     die('Byeeeeeeee script kiddie');
                 }
