@@ -25,7 +25,6 @@ if($stmt->execute()){
 echo("cd=100\n");
 echo("msg=Success.\n");
 echo("deletenum=" . $_POST['delnum'] . "\n");
-echo("interval=10");
 }
 
 /* Explanation
