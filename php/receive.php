@@ -1,4 +1,11 @@
 <?php
+if (!file_exists('config/config.php'))
+{
+  echo("cd=" . "630" . "\n");
+  echo("msg=" . "Configuration file not found." . "\n");
+  exit();
+}
+
 	include "config/config.php"; // Load MySQL.
 	$db = connectMySQL();
 	$headers = getallheaders(); // Only works on apache2

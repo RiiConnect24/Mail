@@ -15,6 +15,13 @@ function genPassword($mode, $length) {
     return $string;
 }
 
+if (!file_exists('config/config.php'))
+{
+  echo("cd=" . "610" . "\n");
+  echo("msg=" . "Configuration file not found." . "\n");
+  exit();
+}
+
 include "config/config.php"; // Time for MySQL.
 $db = connectMySQL();
 

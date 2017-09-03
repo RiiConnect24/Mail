@@ -1,6 +1,13 @@
 <?php
 $noredir = true; // Stop redirection
 
+if (!file_exists('config/config.php'))
+{
+  echo("cd=" . "620" . "\n");
+  echo("msg=" . "Configuration file not found." . "\n");
+  exit();
+}
+
 //Include the Mail lib.
 include 'config/config.php';
 

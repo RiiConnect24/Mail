@@ -1,4 +1,11 @@
 <?php
+if (!file_exists('config/config.php'))
+{
+  echo("cd=" . "650" . "\n");
+  echo("msg=" . "Configuration file not found." . "\n");
+  exit();
+}
+
 include 'config/config.php'; // Config + MySQL
 
 mb_internal_encoding('utf-8');
@@ -158,7 +165,7 @@ function generate_UUID() {
             $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
             $logArray['wiidataresponse'] = "$smtpResponse";
 
-            // say goodbye
+            //say goodbye
             fputs($smtpConnect,"QUIT" . "\r\n");
             $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
             $logArray['quitresponse'] = "$smtpResponse";
@@ -171,10 +178,10 @@ function generate_UUID() {
     }
 
     echo("cd=100\n");
-    echo("msg=success\n");
+    echo("msg=Success.\n");
     echo("mlnum=".(count($mails)-1)."\n");
     for($i = 1; $i <= count($mails)-1; $i++){
         echo("cd".$i."=100\n");
-        echo("msg".$i."=success\n");
+        echo("msg".$i."=Success.\n");
     }
 ?>

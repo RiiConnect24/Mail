@@ -5,6 +5,13 @@ $debug = true;
 header('Content-Type: text/plain;charset=utf-8');
 $headers = apache_request_headers();
 
+if (!file_exists('config/config.php'))
+{
+  echo("cd=" . "640" . "\n");
+  echo("msg=" . "Configuration file not found." . "\n");
+  exit();
+}
+
 require 'config/config.php'; //Load MySQL
 $db = connectMySQL();
 
