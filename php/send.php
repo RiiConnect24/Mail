@@ -120,7 +120,7 @@ function generate_UUID() {
             $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
             if(empty($smtpConnect)) {
                 error_log('Failed to connect to SendGrid for sending: '.$smtpResponse);
-                echo("cd=260\n");
+                echo("cd=451\n");
                 echo("msg=Failed to connect to SendGrid.\n");
                 exit;
             }
