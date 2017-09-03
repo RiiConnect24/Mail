@@ -1,8 +1,8 @@
 <?php
 if (!file_exists('config/config.php'))
 {
-  echo("cd=" . "630" . "\n");
-  echo("msg=" . "Configuration file not found." . "\n");
+  echo("cd=630\n");
+  echo("msg=Configuration file not found.\n");
   exit();
 }
 

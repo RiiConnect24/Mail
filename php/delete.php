@@ -7,8 +7,8 @@ $headers = apache_request_headers();
 
 if (!file_exists('config/config.php'))
 {
-  echo("cd=" . "640" . "\n");
-  echo("msg=" . "Configuration file not found." . "\n");
+  echo("cd=640\n");
+  echo("msg=Configuration file not found.\n");
   exit();
 }
 
