@@ -50,7 +50,7 @@ foreach($attachmentInfo as $key => $info) {
     'subtype' => 'jpeg',
     'description' => $info['name'],
     'disposition' => 'ATTACHMENT', // probably doesn't need to be in caps but oh well
-    'contents.data' => file_get_contents($_FILES[$key]['tmp_name'])
+    'contents.data' => base64_encode(file_get_contents($_FILES[$key]['tmp_name']))
   ];
   break; // remove to continue processing further images, but according to Billy the Wii only supports one
 }
