@@ -16,17 +16,40 @@ $uuid = generate_UUID();
 
 $envelope = json_decode($_POST['envelope'], true);
 $envelope = array(
-    'to' => $envelope['to'][0],
-    'from' => $envelope['from']
+  'to' => $envelope['to'][0],
+  'from' => $envelope['from'],
+  'subject' => $_POST['subject']
 );
-$body = array([
-    'charset'	=>	'utf-8',
-    'subject'	=> $_POST['subject'],
-    'type' => TYPETEXT,
-    'subtype' => 'plain',
-    'description' => 'wiimail',
-    'contents.data' => $_POST['text']
-]);
+$body = array();
+$body[] = [
+  'type' => TYPEMULTIPART,
+  'subtype' => 'mixed'
+]; // mark as multipart message (even without an image it should be fine, but is required to have images)
+
+$body[] = [
+  'charset' => 'utf-8',
+  'type' => TYPETEXT,
+  'subtype' => 'plain',
+  'description' => 'wiimail',
+  'contents.data' => $_POST['text']
+]; // text portion
+
+// handle images, if they exist
+foreach($_POST['attachment-info'] as $key => $info) {
+  if($info['type'] != 'image/jpeg') continue; // if not a jpeg, go to next attachment
+  if(!$_FILES[$key]['name'] || $_FILES[$key]['error']) continue; // if an error / file doesn't exist, go to next attachment
+  $body[] = [
+    'type' => TYPEIMAGE,
+    'encoding' => ENCBASE64,
+    'subtype' => 'jpeg',
+    'description' => $info['name'],
+    'disposition' => 'ATTACHMENT', // probably doesn't need to be in caps but oh well
+    'contents.data' => file_get_contents($_FILES[$key]['tmp_name'])
+  ];
+  break; // remove to continue processing further images, but according to Billy the Wii only supports one
+}
+
+// compose
 $mail = imap_mail_compose($envelope, $body);
 
 include "../php/config/config.php"; // MySQL, remember!
