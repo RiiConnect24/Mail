@@ -34,6 +34,8 @@ $body[] = [
   'contents.data' => $_POST['text']
 ]; // text portion
 
+error_log('attachment info: '.json_encode($_POST['attachment-info']));
+
 // handle images, if they exist
 foreach($_POST['attachment-info'] as $key => $info) {
   if($info['type'] != 'image/jpeg') continue; // if not a jpeg, go to next attachment
