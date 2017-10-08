@@ -58,7 +58,9 @@ foreach($attachmentInfo as $key => $info) {
 // compose
 $mail = imap_mail_compose($envelope, $body);
 error_log('dumping $mail (base64-encoded)');
-error_log(base64_encode($mail));
+// error_log(base64_encode($mail));
+file_put_contents($mail, 'testEmlDump/'.time().'.eml');
+error_log('should be saved to testEmlDump/'.time().'.eml');
 
 include "../php/config/config.php"; // MySQL, remember!
 
