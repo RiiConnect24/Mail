@@ -51,7 +51,7 @@ foreach($attachmentInfo as $key => $info) {
 //     'description' => $info['name'],
     'disposition.type' => 'attachment',
     'disposition' => array('filename' => $info['name']),
-    'contents.data' => base64_encode(file_get_contents($_FILES[$key]['tmp_name']))
+    'contents.data' => chunk_split(base64_encode(file_get_contents($_FILES[$key]['tmp_name'])), 76) // wii is weird
   ];
   break; // remove to continue processing further images, but according to Billy the Wii only supports one
 }
