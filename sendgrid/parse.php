@@ -46,7 +46,7 @@ foreach($attachmentInfo as $key => $info) {
   if($_FILES[$key]['error']) { error_log('error processing attachment '.$key.': '.$_FILES[$key]['error']); continue; } // if an error / file doesn't exist, go to next attachment
   $body[] = [
     'type' => TYPEIMAGE,
-    'encoding' => 'base64',
+    'encoding' => ENCBASE64,
     'subtype' => 'jpeg; name='.$info['name'],
 //     'description' => $info['name'],
     'disposition.type' => 'attachment',
