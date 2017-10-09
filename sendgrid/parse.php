@@ -40,8 +40,8 @@ error_log('attachment info: '.json_encode($_POST['attachment-info']));
 $attachmentInfo = json_decode($_POST['attachment-info'], true);
 error_log('attachment info encoded to JSON: '.json_encode($attachmentInfo));
 foreach($attachmentInfo as $key => $info) {
-  error_log('info: found attachment, filename: '.$info['name'].' (key: '.$key.')');
-  if($info['type'] != 'image/jpeg') { error_log('attachment found but type was '.$info['type'].' (not image/jpeg)'); continue; } // if not a jpeg, go to next attachment
+//   error_log('info: found attachment, filename: '.$info['name'].' (key: '.$key.')');
+  if($info['type'] != 'image/jpeg') continue; // if not a jpeg, go to next attachment
   if(!$_FILES[$key]['name']) { error_log('sendgrid says there was an attachment - '.$key.' - but we couldn\'t find it in $_FILES'); continue; }
   if($_FILES[$key]['error']) { error_log('error processing attachment '.$key.': '.$_FILES[$key]['error']); continue; } // if an error / file doesn't exist, go to next attachment
   $body[] = [
@@ -58,10 +58,6 @@ foreach($attachmentInfo as $key => $info) {
 
 // compose
 $mail = imap_mail_compose($envelope, $body);
-error_log('dumping $mail (base64-encoded)');
-// error_log(base64_encode($mail));
-file_put_contents('testEmlDump/'.time().'.eml', $mail);
-error_log('should be saved to testEmlDump/'.time().'.eml');
 
 include "../php/config/config.php"; // MySQL, remember!
 
