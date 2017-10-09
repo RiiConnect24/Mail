@@ -48,7 +48,7 @@ foreach($attachmentInfo as $key => $info) {
     'type' => 'image',
     'encoding' => 'base64',
     'subtype' => 'jpeg; name='.$info['name'],
-    'description' => $info['name'],
+//     'description' => $info['name'],
     'disposition.type' => 'attachment',
     'disposition' => array('filename' => $info['name']),
     'contents.data' => base64_encode(file_get_contents($_FILES[$key]['tmp_name']))
