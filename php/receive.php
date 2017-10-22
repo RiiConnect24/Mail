@@ -38,9 +38,11 @@ $mailoutput = "";
 
 for ($i = 0; $i < count($mails2); $i++)
 {
+  error_log($mailsize);
+  error_log((int) $_POST['maxsize']);
+
   if ($mailsize > (int) $_POST['maxsize'])
   {
-    error_log("rip");
     break;
   }
 
