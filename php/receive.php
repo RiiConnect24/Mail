@@ -36,6 +36,8 @@ $mailnum = 0;
 $mailsize = 0;
 $mailoutput = "";
 
+$wc24mimebounary = "BoundaryForDL" . date("YmdHi") . "/" . rand(1000000, 9999999);
+
 for ($i = 0; $i < count($mails2); $i++)
 {
   error_log($mailsize);
@@ -62,7 +64,6 @@ for ($i = 0; $i < count($mails2); $i++)
 	if (!$stmt->execute()) error_log('Warning: Failed to mark mail as sent');
 }
 
-$wc24mimebounary = "BoundaryForDL" . date("YmdHi") . "/" . rand(1000000, 9999999);
 header("Content-Type: multipart/mixed; boundary=" . $wc24mimebounary);
 echo "--" . $wc24mimebounary . "\r\n";
 echo "Content-Type: text/plain\r\n\r\n";
