@@ -40,6 +40,7 @@ for ($i = 0; $i < count($mails2); $i++)
 {
   if ($mailsize > (int) $_POST['maxsize'])
   {
+    error_log("rip");
     break;
   }
 
