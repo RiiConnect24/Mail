@@ -40,7 +40,7 @@ function generateRandomString($length = 33, $mode)
 
 echo ("cd=" . "100" . "\n");
 echo ("msg=" . "Success." . "\n");
-echo ("res=" . generateRandomString(40, 2) . "\n");
+echo ("res=" . hash_hmac('sha1', hex2bin($_POST['chlng']), hex2bin(ce4cf29a3d6be1c2619172b5cb298c8972d450ad)) . "\n"); // We haven't figured out how to hash this correctly, but this resembles the SHA1 HMAC thing that Nintendo used. If we figure out how to hash it properly, we won't get 102032 on games.
 echo ("mail.flag=" . generateRandomString(33, 1) . "\n");
 echo ("interval=" . $interval . "\n");
 ?>
