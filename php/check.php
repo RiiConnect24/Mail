@@ -38,7 +38,7 @@ function generateRandomString($length = 33, $mode)
 	return $randomString;
 }
 
-$hmac_key = ce4cf29a3d6be1c2619172b5cb298c8972d450ad;
+$hmac_key = "ce4cf29a3d6be1c2619172b5cb298c8972d450ad";
 
 echo ("cd=" . "100" . "\n");
 echo ("msg=" . "Success." . "\n");
