@@ -40,9 +40,6 @@ $wc24mimebounary = "BoundaryForDL" . date("YmdHi") . "/" . rand(1000000, 9999999
 
 for ($i = 0; $i < count($mails2); $i++)
 {
-  error_log($mailsize);
-  error_log((int) $_POST['maxsize']);
-
   if ($mailsize > (int) $_POST['maxsize'])
   {
     break;
@@ -52,9 +49,11 @@ for ($i = 0; $i < count($mails2); $i++)
   $mailnum += 1;
   $mailsize += strlen($output);
 
-  $mailoutput += "\r\n--" . $wc24mimebounary . "\r\n";
-	$mailoutput += "Content-Type: text/plain\r\n\r\n";
-	$mailoutput += $output;
+  $mailoutput .= "\r\n--" . $wc24mimebounary . "\r\n";
+	$mailoutput .= "Content-Type: text/plain\r\n\r\n";
+	$mailoutput .= $output;
+
+  error_log($mailoutput);
 
 	/* Update the mail's row to set it as sent
 	* The reason we don't just delete it is because we have delete.php
