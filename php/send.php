@@ -1,187 +1,234 @@
 <?php
+
 if (!file_exists('config/config.php'))
 {
-  echo("cd=650\n");
-  echo("msg=Configuration file not found.\n");
-  exit();
+	echo ("cd=650\n");
+	echo ("msg=Configuration file not found.\n");
+	exit();
 }
 
-include 'config/config.php'; // Config + MySQL
+include 'config/config.php';
+
+ // Config + MySQL
 
 mb_internal_encoding('utf-8');
 
-function generate_UUID() {
-        return str_replace(
-                array('+','/','='),
-                array('-','_',''),
-                base64_encode(file_get_contents('/dev/urandom', 0, null, 0, 8))
-        );
-    }
+function generate_UUID()
+{
+	return str_replace(array(
+		'+',
+		'/',
+		'='
+	) , array(
+		'-',
+		'_',
+		''
+	) , base64_encode(file_get_contents('/dev/urandom', 0, null, 0, 8)));
+}
 
+header('Content-Type: text/plain;charset=utf-8');
 
-    header('Content-Type: text/plain;charset=utf-8');
+// MySQL stuff
 
-    // MySQL stuff
-    $db = connectMySQL();
+$db = connectMySQL();
+/*
+* Bulk mail handler
+*
+* Note: $mails was previously known as $mxes but it felt like a change to
+* a more descriptive name as apparently it's sentient and likes to please
+* pedantic programmers like Lauren
+*/
+$mails = array();
 
-    /*
-     * Bulk mail handler
-     *
-     * Note: $mails was previously known as $mxes but it felt like a change to
-     * a more descriptive name as apparently it's sentient and likes to please
-     * pedantic programmers like Lauren
-     */
-    $mails = array();
-    foreach($_POST as $key => $value){
-        if(substr($key, 0, 1) == 'm'){
-            $mails[$key] = $value;
-        }
-    }
-    foreach($mails as $mail){
-        /* Get all our awesome data */
-        $from = NULL;
-        $to = []; /* Array of wiiIDs to send to */
-        $pcTo = []; /* email recipients */
-        $message_id = NULL; /* Message-Id as provided by the Wii */
+foreach($_POST as $key => $value)
+{
+	if (substr($key, 0, 1) == 'm')
+	{
+		$mails[$key] = $value;
+	}
+}
 
-        $lines_to_remove = 0; /* Lines to remove before the actual message data */
+foreach($mails as $mail)
+{
+	/* Get all our awesome data */
+	$from = NULL;
+	$to = []; /* Array of wiiIDs to send to */
+	$pcTo = []; /* email recipients */
+	$message_id = NULL; /* Message-Id as provided by the Wii */
+	$lines_to_remove = 0; /* Lines to remove before the actual message data */
+	$line = strtok($mail, "\r\n");
+	while ($line !== false)
+	{
+		$lines_to_remove++;
+		$matches = [];
+		if (preg_match("/^RCPT TO:\s(.*)@(.*)$/", $line, $matches))
+		{ // (allusers|w[0-9]*) matches allusers and wXXXX
+			/* I'm matching allusers in the regex in case you want to handle that specially in the future */
 
-        $line = strtok($mail, "\r\n");
-        while ($line !== false) {
-            $lines_to_remove++;
-            $matches = [];
+			// error_log($line);
 
-            if(preg_match("/^RCPT TO:\s(.*)@(.*)$/", $line, $matches)) { // (allusers|w[0-9]*) matches allusers and wXXXX
-                /* I'm matching allusers in the regex in case you want to handle that specially in the future */
-                //error_log($line);
-                if($matches[2] != $domain){
-                    //error_log('pc email detected');
-                    //error_log(json_encode($matches));
-                    $pcTo[] = $matches[1].'@'.$matches[2];
-                }else if($matches[1] != 'allusers') {
-                    $to[] = substr($matches[1], 1);
-                    //error_log('wiimail detected');
-                    //error_log(json_encode($matches));
-                }
-            }else if(preg_match("/^MAIL FROM:\s(w[0-9]*)@(?:.*)$/", $line, $matches)) {
-                /* MAIL FROM line */
-                $from = $matches[1];
-                if($from == 'w9999999999990000') { /* sanity check; that's "Nintendo's special ID" according to PokeAcer */
-                    error_log('w9999999999990000 tried to send mail, IP address: '.$_SERVER['REMOTE_ADDR']);
-                    echo("cd=351\n");
-                    echo("msg=w9999999999990000 tried to send mail.\n");
-                    die('Byeeeeeeee script kiddie');
-                }
-            }else if(preg_match("/^Message-Id:\s<([0-9a-fA-F]*)@(?:.*)>$/", $line, $matches)) {
-                $message_id = $matches[1];
-            }else if(preg_match("/^DATA$/", $line, $matches)){
-                /* DATA line, end the party (sorry, Pinkie Pie) as we don't need to cut out any more lines */
-                break;
-            }
+			if ($matches[2] != $domain)
+			{
 
-            $line = strtok("\r\n");
-        }
+				// error_log('pc email detected');
+				// error_log(json_encode($matches));
 
-        $message = implode("\n", array_slice(explode("\n", $mail), $lines_to_remove));
+				$pcTo[] = $matches[1] . '@' . $matches[2];
+			}
+			else
+			if ($matches[1] != 'allusers')
+			{
+				$to[] = substr($matches[1], 1);
 
-        $message_id = $message_id ?: generate_UUID(); /* Just in case we don't get one from the Wii */
+				// error_log('wiimail detected');
+				// error_log(json_encode($matches));
 
-        foreach($to as $receipient_id) {
-            $mail_id = generate_UUID(); /* for the individual mail, because you're worth it */
+			}
+		}
+		else
+		if (preg_match("/^MAIL FROM:\s(w[0-9]*)@(?:.*)$/", $line, $matches))
+		{
+			/* MAIL FROM line */
+			$from = $matches[1];
+			if ($from == 'w9999999999990000')
+			{ /* sanity check; that's "Nintendo's special ID" according to PokeAcer */
+				error_log('w9999999999990000 tried to send mail, IP address: ' . $_SERVER['REMOTE_ADDR']);
+				echo ("cd=351\n");
+				echo ("msg=w9999999999990000 tried to send mail.\n");
+				die('Byeeeeeeee script kiddie');
+			}
+		}
+		else
+		if (preg_match("/^Message-Id:\s<([0-9a-fA-F]*)@(?:.*)>$/", $line, $matches))
+		{
+			$message_id = $matches[1];
+		}
+		else
+		if (preg_match("/^DATA$/", $line, $matches))
+		{
+			/* DATA line, end the party (sorry, Pinkie Pie) as we don't need to cut out any more lines */
+			break;
+		}
 
+		$line = strtok("\r\n");
+	}
 
-                $stmt = $db->prepare('INSERT INTO `mails` (`sender_wiiID`,
+	$message = implode("\n", array_slice(explode("\n", $mail) , $lines_to_remove));
+	$message_id = $message_id ? : generate_UUID(); /* Just in case we don't get one from the Wii */
+	foreach($to as $receipient_id)
+	{
+		$mail_id = generate_UUID(); /* for the individual mail, because you're worth it */
+		$stmt = $db->prepare('INSERT INTO `mails` (`sender_wiiID`,
                 `mail`,
                 `recipient_id`,
                 `mail_id`,
                 `message_id`) VALUES (?, ?, ?, ?, ?)'); /* mail_id is the unique ID for each copy of a message (different for each recipient) should be VARCHAR(255) UNIQUE PRIMARY KEY, message_id is the unique ID for each message (provided by the Wii; will be the same for each recipient) should be VARCHAR(255) KEY */
-                $stmt->bind_param('sssss', $from, $message, $receipient_id, $mail_id, $message_id);
-            if($stmt->execute()){
-                $success = 1;
-            }else{
-                error_log('DATABASE ERROR ON cgi-bin/send.cgi - '.$stmt->error);
-                echo("cd=450\n");
-                echo("msg=Database error.\n");
-                exit;
-            }
-        }
-        // handle external email (through SendGrid)
-            //error_log('about to check if pc emails should be sent');
-        if(!empty($pcTo)) {
-            //error_log('pc emails will be sent');
-            $smtpServer = 'smtp.sendgrid.net';
-            $username = 'apikey';
-            $newLine = "\r\n";
-            $port = 25;
-            $timeout = 45;
+		$stmt->bind_param('sssss', $from, $message, $receipient_id, $mail_id, $message_id);
+		if ($stmt->execute())
+		{
+			$success = 1;
+		}
+		else
+		{
+			error_log('DATABASE ERROR ON cgi-bin/send.cgi - ' . $stmt->error);
+			echo ("cd=450\n");
+			echo ("msg=Database error.\n");
+			exit;
+		}
+	}
 
-            //connect to the host and port
-            $smtpConnect = fsockopen($smtpServer, $port, $errno, $errstr, $timeout);
-            $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
-            if(empty($smtpConnect)) {
-                error_log('Failed to connect to SendGrid for sending: '.$smtpResponse);
-                echo("cd=451\n");
-                echo("msg=Failed to connect to SendGrid.\n");
-                exit;
-            }
-            else {
-                $logArray['connection'] = "<p>Connected to: $smtpResponse";
-            }
+	// handle external email (through SendGrid)
+	// error_log('about to check if pc emails should be sent');
 
-            fputs($smtpConnect, "HELO\r\n");
+	if (!empty($pcTo))
+	{
 
-            // say HELO
-            fputs($smtpConnect, "HELO YOURSERVER". "\r\n");
-            $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
-            $logArray['heloresponse'] = "$smtpResponse";
+		// error_log('pc emails will be sent');
 
-            // EHLO replaces HELO, but we don't support ESMTP
+		$smtpServer = 'smtp.sendgrid.net';
+		$username = 'apikey';
+		$newLine = "\r\n";
+		$port = 25;
+		$timeout = 45;
 
-            //fputs($smtpConnect, "EHLO rc24.xyz". "\r\n");
-            //$smtpResponse = fgets($smtpConnect, 4096);
-            //error_log($smtpResponse);
-            //$logArray['ehloresponse2'] = "$smtpResponse";
+		// connect to the host and port
 
-            //request for auth login
-            //error_log("Attempting auth");
-            fputs($smtpConnect,"AUTH LOGIN" . "\r\n");
-            $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
-            $logArray['authrequest'] = "$smtpResponse";
+		$smtpConnect = fsockopen($smtpServer, $port, $errno, $errstr, $timeout);
+		$smtpResponse = fgets($smtpConnect, 4096); //error_log($smtpResponse);
+		if (empty($smtpConnect))
+		{
+			error_log('Failed to connect to SendGrid for sending: ' . $smtpResponse);
+			echo ("cd=451\n");
+			echo ("msg=Failed to connect to SendGrid.\n");
+			exit;
+		}
+		else
+		{
+			$logArray['connection'] = "<p>Connected to: $smtpResponse";
+		}
 
-            //error_log("Sending username");
+		fputs($smtpConnect, "HELO\r\n");
 
-            //send the username
-            fputs($smtpConnect, base64_encode($username) . "\r\n");
-            $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
-            $logArray['authusername'] = "$smtpResponse";
+		// say HELO
 
-            //send the password
-            fputs($smtpConnect, base64_encode($password) . "\r\n");
-            $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
-            $logArray['authpassword'] = "$smtpResponse";
+		fputs($smtpConnect, "HELO YOURSERVER" . "\r\n");
+		$smtpResponse = fgets($smtpConnect, 4096); //error_log($smtpResponse);
+		$logArray['heloresponse'] = "$smtpResponse";
 
-            //SMTP data from the Wii
-            fputs($smtpConnect, $mail . "\r\n.\r\n");
-            $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
-            $logArray['wiidataresponse'] = "$smtpResponse";
+		// EHLO replaces HELO, but we don't support ESMTP
+		// fputs($smtpConnect, "EHLO rc24.xyz". "\r\n");
+		// $smtpResponse = fgets($smtpConnect, 4096);
+		// error_log($smtpResponse);
+		// $logArray['ehloresponse2'] = "$smtpResponse";
+		// request for auth login
+		// error_log("Attempting auth");
 
-            //say goodbye
-            fputs($smtpConnect,"QUIT" . "\r\n");
-            $smtpResponse = fgets($smtpConnect, 4096);//error_log($smtpResponse);
-            $logArray['quitresponse'] = "$smtpResponse";
-            $logArray['quitcode'] = substr($smtpResponse,0,3);
-            fclose($smtpConnect);
-            //a return value of 221 in $retVal["quitcode"] is a success
-            //error_log('Output from SendGrid handler code:');
-            //error_log(json_encode($logArray));
-        }
-    }
+		fputs($smtpConnect, "AUTH LOGIN" . "\r\n");
+		$smtpResponse = fgets($smtpConnect, 4096); //error_log($smtpResponse);
+		$logArray['authrequest'] = "$smtpResponse";
 
-    echo("cd=100\n");
-    echo("msg=Success.\n");
-    echo("mlnum=".(count($mails)-1)."\n");
-    for($i = 1; $i <= count($mails)-1; $i++){
-        echo("cd".$i."=100\n");
-        echo("msg".$i."=Success.\n");
-    }
+		// error_log("Sending username");
+		// send the username
+
+		fputs($smtpConnect, base64_encode($username) . "\r\n");
+		$smtpResponse = fgets($smtpConnect, 4096); //error_log($smtpResponse);
+		$logArray['authusername'] = "$smtpResponse";
+
+		// send the password
+
+		fputs($smtpConnect, base64_encode($password) . "\r\n");
+		$smtpResponse = fgets($smtpConnect, 4096); //error_log($smtpResponse);
+		$logArray['authpassword'] = "$smtpResponse";
+
+		// SMTP data from the Wii
+
+		fputs($smtpConnect, $mail . "\r\n.\r\n");
+		$smtpResponse = fgets($smtpConnect, 4096); //error_log($smtpResponse);
+		$logArray['wiidataresponse'] = "$smtpResponse";
+
+		// say goodbye
+
+		fputs($smtpConnect, "QUIT" . "\r\n");
+		$smtpResponse = fgets($smtpConnect, 4096); //error_log($smtpResponse);
+		$logArray['quitresponse'] = "$smtpResponse";
+		$logArray['quitcode'] = substr($smtpResponse, 0, 3);
+		fclose($smtpConnect);
+
+		// a return value of 221 in $retVal["quitcode"] is a success
+		// error_log('Output from SendGrid handler code:');
+		// error_log(json_encode($logArray));
+
+	}
+}
+
+echo ("cd=100\n");
+echo ("msg=Success.\n");
+echo ("mlnum=" . (count($mails) - 1) . "\n");
+
+for ($i = 1; $i <= count($mails) - 1; $i++)
+{
+	echo ("cd" . $i . "=100\n");
+	echo ("msg" . $i . "=Success.\n");
+}
+
 ?>
