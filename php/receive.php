@@ -38,7 +38,7 @@ $mailoutput = "";
 
 for ($i = 0; $i < count($mails2); $i++)
 {
-  if ($mailsize > $_POST['maxsize'])
+  if ($mailsize > (int) $_POST['maxsize'])
   {
     break;
   }
