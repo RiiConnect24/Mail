@@ -53,8 +53,6 @@ for ($i = 0; $i < count($mails2); $i++)
 	$mailoutput .= "Content-Type: text/plain\r\n\r\n";
 	$mailoutput .= $output;
 
-  error_log($mailoutput);
-
 	/* Update the mail's row to set it as sent
 	* The reason we don't just delete it is because we have delete.php
 	*/
