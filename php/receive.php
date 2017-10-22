@@ -32,41 +32,45 @@ if (!$stmt->execute())
 
 $mails = $stmt->get_result(); // array of results... with a lonely mail :(
 $mails2 = $mails->fetch_all(MYSQLI_ASSOC);
-$mailnum = count($mails2);
+$mailnum = 0;
+$mailsize = 0;
+$mailoutput = "";
 
-if ($mailnum < 1)
+for ($i = 0; $i < count($mails2); $i++)
 {
-	$mailsize = 0;
-}
-else
-{
-	$mailsize = 1000000;
+  if ($mailsize > $_POST['maxsize'])
+  {
+    break;
+  }
+
+  $output = $mails2[$i]["mail"];
+  $mailnum += 1;
+  $mailsize += strlen($output);
+
+  $mailoutput += "\r\n--" . $wc24mimebounary . "\r\n";
+	$mailoutput += "Content-Type: text/plain\r\n\r\n";
+	$mailoutput += $output;
+
+	/* Update the mail's row to set it as sent
+	* The reason we don't just delete it is because we have delete.php
+	*/
+	$stmt = $db->prepare('UPDATE `mails` SET `sent` = 1 WHERE `mail_id` = ?');
+	$stmt->bind_param('s', $mails2[$i]['mail_id']);
+	if (!$stmt->execute()) error_log('Warning: Failed to mark mail as sent');
 }
 
 $wc24mimebounary = "BoundaryForDL" . date("YmdHi") . "/" . rand(1000000, 9999999);
 header("Content-Type: multipart/mixed; boundary=" . $wc24mimebounary);
 echo "--" . $wc24mimebounary . "\r\n";
 echo "Content-Type: text/plain\r\n\r\n";
-echo "This part is ignored.\r\n\r\n\r\n";
-echo ("\ncd=100");
-echo ("\nmsg=Success.");
-echo ("\nmailnum=" . $mailnum);
-echo ("\nmailsize=" . $mailsize);
-echo ("\nallnum=" . $mailnum);
+echo "This part is ignored.\r\n\r\n\r\n\n";
+echo "cd=100\n";
+echo "msg=Success.\n";
+echo "mailnum=" . $mailnum . "\n";
+echo "mailsize=" . $mailsize . "\n";
+echo "allnum=" . $mailnum . "\n";
 
-for ($i = 0; $i < count($mails2); $i++)
-{
-	echo "\r\n--" . $wc24mimebounary . "\r\n";
-	echo "Content-Type: text/plain\r\n\r\n";
-	$output = $mails2[$i]["mail"];
-	echo $output;
-	/* Update the mail's row to set it as sent
-	* The reason we don't just delete it is delete.php
-	*/
-	$stmt = $db->prepare('UPDATE `mails` SET `sent` = 1 WHERE `mail_id` = ?');
-	$stmt->bind_param('s', $mails2[$i]['mail_id']);
-	if (!$stmt->execute()) error_log('Warning: Failed to mark mail as sent');
-}
+echo $mailoutput;
 
 echo "\r\n--" . $wc24mimebounary . "--\r\n";
 ?>
