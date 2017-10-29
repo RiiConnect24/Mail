@@ -1,7 +1,7 @@
 <?php
 $noredir = true; // Stop redirection
 
-if (!isset($_POST['mlchkid']))
+if (!isset($_POST['mlchkid'], $_POST['chlng']))
 {
 	echo ("cd=320\n");
 	echo ("msg=Receive data is incorrect format.\n");
