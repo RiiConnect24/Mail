@@ -6,14 +6,11 @@ $debug = true;
 header('Content-Type: text/plain;charset=utf-8');
 $headers = apache_request_headers();
 
-if (!file_exists('config/config.php'))
-{
-	echo ("cd=640\n");
-	echo ("msg=Configuration file not found.\n");
-	exit();
+if(!require('config/config.php')) {
+    echo ("cd=650\n");
+    echo ("msg=Configuration file not found.\n");
+    exit();
 }
-
-require 'config/config.php';
 
  // Load MySQL
 

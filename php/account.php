@@ -22,14 +22,11 @@ function genPassword($mode, $length)
 	return $string;
 }
 
-if (!file_exists('config/config.php'))
-{
-	echo ("cd=610\n");
-	echo ("msg=Configuration file not found.\n");
-	exit();
+if(!require('config/config.php')) {
+    echo ("cd=650\n");
+    echo ("msg=Configuration file not found.\n");
+    exit();
 }
-
-include "config/config.php";
 
  // Time for MySQL.
 

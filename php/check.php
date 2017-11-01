@@ -7,17 +7,11 @@ if (!isset($_POST['mlchkid'], $_POST['chlng']))
 	echo ("msg=Receive data is incorrect format.\n");
 	exit();
 }
-
-if (!file_exists('config/config.php'))
-{
-	echo ("cd=620\n");
-	echo ("msg=Configuration file not found.\n");
-	exit();
+if(!require('config/config.php')) {
+    echo ("cd=650\n");
+    echo ("msg=Configuration file not found.\n");
+    exit();
 }
-
-// Include the Mail lib.
-
-include 'config/config.php';
 
 header('Content-Type: text/plain;charset=utf-8');
 header("X-Wii-Mail-Download-Span: " . $interval);

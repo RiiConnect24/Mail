@@ -1,13 +1,10 @@
 <?php
 
-if (!file_exists('config/config.php'))
-{
-	echo ("cd=650\n");
-	echo ("msg=Configuration file not found.\n");
-	exit();
+if(!require('config/config.php')) {
+    echo ("cd=650\n");
+    echo ("msg=Configuration file not found.\n");
+    exit();
 }
-
-include 'config/config.php';
 
  // Config + MySQL
 
