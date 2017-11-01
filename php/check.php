@@ -7,8 +7,9 @@ if (!isset($_POST['mlchkid'], $_POST['chlng']))
 	echo ("msg=Receive data is incorrect format.\n");
 	exit();
 }
+
 if(!require('config/config.php')) {
-    echo ("cd=650\n");
+    echo ("cd=620\n");
     echo ("msg=Configuration file not found.\n");
     exit();
 }

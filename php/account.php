@@ -23,7 +23,7 @@ function genPassword($mode, $length)
 }
 
 if(!require('config/config.php')) {
-    echo ("cd=650\n");
+    echo ("cd=610\n");
     echo ("msg=Configuration file not found.\n");
     exit();
 }
