@@ -221,6 +221,20 @@ foreach($mails as $mail)
 	}
 }
 
+$anarray = array (
+	'v'	=>	1,
+	't'	=>	'event',
+	'tid'	=>	$tid, //Set in Config
+	'ds'	=>	'script',
+	'uid'	=>	'Wii',
+	'ec'	=>	'script',
+	'ea'	=>	'send',
+	'ev'	=>	count($mails),
+);
+
+file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);
+
+
 echo ("cd=100\n");
 echo ("msg=Success.\n");
 echo ("mlnum=" . (count($mails) - 1) . "\n");

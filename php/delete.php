@@ -29,6 +29,18 @@ if ($stmt->execute())
 	echo ("deletenum=" . $_POST['delnum'] . "\n");
 }
 
+$anarray = array (
+    'v'	=>	1,
+    't'	=>	'event',
+    'tid'	=>	$tid, //Set in Config
+    'ds'	=>	'script',
+    'uid'	=>	'Wii',
+    'ec'	=>	'script',
+    'ea'	=>	'del',
+    'ev'	=>	count($_POST['delnum']),
+);
+
+file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);
 /* Explanation
 * If we use delete properly, it lets us off with receive.php sending *every single mail in the server* to the Wii
 * The Wii can just say "delete x mail" instead of deleting all.

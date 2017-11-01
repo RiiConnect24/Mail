@@ -45,6 +45,18 @@ function generateRandomString($length = 33, $mode)
 	return $randomString;
 }
 
+$anarray = array (
+    'v'	=>	1,
+    't'	=>	'event',
+    'tid'	=>	$tid, //Set in Config
+    'ds'	=>	'script',
+    'uid'	=>	'Wii',
+    'ec'	=>	'script',
+    'ea'	=>	'chck',
+);
+
+file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);
+
 $hmac_key = "ce4cf29a3d6be1c2619172b5cb298c8972d450ad";
 
 echo ("cd=" . "100" . "\n");
