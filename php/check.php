@@ -45,9 +45,11 @@ function generateRandomString($length = 33, $mode)
 	return $randomString;
 }
 
+require 'config/core.php';
 $anarray = array (
     'v'	=>	1,
-    't'	=>	'event',
+    'aip'	=>	1,
+    'uip'	=>	get_ip(),
     'tid'	=>	$tid, //Set in Config
     'ds'	=>	'script',
     'uid'	=>	'Wii',

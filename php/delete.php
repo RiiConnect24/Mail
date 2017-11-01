@@ -29,8 +29,11 @@ if ($stmt->execute())
 	echo ("deletenum=" . $_POST['delnum'] . "\n");
 }
 
+require 'config/core.php';
 $anarray = array (
     'v'	=>	1,
+    'aip'	=>	1,
+    'uip'	=>	get_ip(),
     't'	=>	'event',
     'tid'	=>	$tid, //Set in Config
     'ds'	=>	'script',
