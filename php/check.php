@@ -52,7 +52,7 @@ $anarray = array (
     'uip'	=>	get_ip(),
     'tid'	=>	$tid, //Set in Config
     'ds'	=>	'script',
-    'uid'	=>	$_POST['mlchkid'],
+    'uid'	=>	hash('sha256', $_POST['mlchkid']),
     'ec'	=>	'script',
     'ea'	=>	'chck',
 );

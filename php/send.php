@@ -91,8 +91,7 @@ foreach($mails as $mail)
 			/* MAIL FROM line */
 			$from = $matches[1];
 			if ($from == 'w9999999999990000')
-			{ /* sanity check; that's "Nintendo's special ID" according to PokeAcer */
-				error_log('w9999999999990000 tried to send mail, IP address: ' . $_SERVER['REMOTE_ADDR']);
+			{ /* sanity check; This is Nintendo's global ID, used in announcements. */
 				echo ("cd=351\n");
 				echo ("msg=w9999999999990000 tried to send mail.\n");
 				die('Byeeeeeeee script kiddie');
@@ -229,7 +228,7 @@ $anarray = array (
     'uip'	=>	get_ip(),
 	'tid'	=>	$tid, //Set in Config
 	'ds'	=>	'script',
-	'uid'	=>	,
+	'uid'	=>	'Unset',
 	'ec'	=>	'script',
 	'ea'	=>	'send',
 	'ev'	=>	count($mails),
