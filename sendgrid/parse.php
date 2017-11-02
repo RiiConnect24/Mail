@@ -66,8 +66,7 @@ foreach($attachmentInfo as $key => $info)
 $mail = imap_mail_compose($envelope, $body);
 include "../php/config/config.php";
 
- // MySQL, remember!
-// DEBUG
+// MySQL, remember!
 
 $db = connectMySQL();
 $stmt = $db->prepare("INSERT INTO `mails` (`sender_wiiID`, `recipient_id`, `mail_id`, `message_id`, `mail`) VALUES (?, ?, ?, ?, ?)");
