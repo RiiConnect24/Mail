@@ -1,5 +1,6 @@
 <?php
-// This will change the interval any Wii connecting to your server will check. Min is 1min.
+// This will change the interval any Wii connecting to your server will check. Min is 1min
+// (but don't set it to 1min unless you wanna fry your Wii on standby, the fan doesn't run in that mode)
 $interval = 5;
 
 // API key for SendGrid
