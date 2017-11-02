@@ -70,6 +70,13 @@ foreach($mails as $mail)
 				// error_log('pc email detected');
 				// error_log(json_encode($matches));
 
+        // We are not letting you send emails to a defunct @wii.com address.
+
+        if ($matches[2] == "wii.com")
+        {
+          continue;
+        }
+
 				$pcTo[] = $matches[1] . '@' . $matches[2];
 			}
 			else
