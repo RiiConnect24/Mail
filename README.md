@@ -17,7 +17,7 @@ Pruning scripts are in `clean` folder. Run these every so often.
 - `password` - API Key for SendGrid
 - `domain` - Domain for SendGrid verification
 - `interval` - Interval to send to the Wii to have it check in for mail
-
+- `sentryurl` - The URL Sentry gave you in your setup, to use for error logging.
 # Credits
 - thejsa for MySQL code and all of send.php's working send code.
 - spotlight_is_ok for pushing for this type of stuff to be OSSed.

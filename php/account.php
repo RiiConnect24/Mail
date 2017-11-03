@@ -1,4 +1,12 @@
 <?php
+if(!require('config/config.php')) {
+    echo ("cd=610\n");
+    echo ("msg=Configuration file not found.\n");
+    exit();
+}
+require_once 'vendor/autoload.php';
+$client = (new Raven_Client($sentryurl))->install();
+
 header('Content-Type: text/plain;charset=utf-8');
 
 function genPassword($mode, $length)
@@ -21,13 +29,6 @@ function genPassword($mode, $length)
 
 	return $string;
 }
-
-if(!require('config/config.php')) {
-    echo ("cd=610\n");
-    echo ("msg=Configuration file not found.\n");
-    exit();
-}
-
  // Time for MySQL.
 
 $db = connectMySQL();

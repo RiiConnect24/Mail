@@ -1,11 +1,11 @@
 <?php
-
 if(!require('config/config.php')) {
-    echo ("cd=650\n");
+    echo ("cd=610\n");
     echo ("msg=Configuration file not found.\n");
     exit();
 }
-
+require_once 'vendor/autoload.php';
+$client = (new Raven_Client($sentryurl))->install();
  // Config + MySQL
 
 mb_internal_encoding('utf-8');
