@@ -1,7 +1,7 @@
 <?php
 
 if(!require('config/config.php')) {
-    echo ("cd=610\n");
+    echo ("cd=630\n");
     echo ("msg=Configuration file not found.\n");
     exit();
 }
