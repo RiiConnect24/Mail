@@ -9,7 +9,7 @@ if (!isset($_POST['mlchkid'], $_POST['chlng']))
 }
 
 if(!require('config/config.php')) {
-    echo ("cd=610\n");
+    echo ("cd=620\n");
     echo ("msg=Configuration file not found.\n");
     exit();
 }
