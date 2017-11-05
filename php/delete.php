@@ -7,7 +7,7 @@ header('Content-Type: text/plain;charset=utf-8');
 $headers = apache_request_headers();
 
 if(!require('config/config.php')) {
-    echo ("cd=610\n");
+    echo ("cd=640\n");
     echo ("msg=Configuration file not found.\n");
     exit();
 }
