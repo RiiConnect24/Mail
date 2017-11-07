@@ -1,4 +1,5 @@
 <?php
+ini_set('max_execution_time', 120);
 $noredir = true; // Stop redirection
 
 if (!isset($_POST['mlchkid'], $_POST['chlng']))
