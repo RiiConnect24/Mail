@@ -1,5 +1,5 @@
 <?php
-ini_set('max_execution_time', 30);
+ini_set('max_execution_time', 60);
 if(!require('config/config.php')) {
     echo ("cd=630\n");
     echo ("msg=Configuration file not found.\n");
@@ -60,7 +60,7 @@ for ($i = 0; $i < count($mails2); $i++)
 	if (!$stmt->execute()) error_log('Warning: Failed to mark mail as sent');
 }
 require 'config/core.php';
-$anarray = array (
+/*$anarray = array (
     'v'	=>	1,
     't'	=>	'event',
     'aip'	=>	1,
@@ -73,7 +73,7 @@ $anarray = array (
     'ev'	=>	count($mailnum),
 );
 
-file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);
+file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);*/
 
 header("Content-Type: multipart/mixed; boundary=" . $wc24mimebounary);
 echo "--" . $wc24mimebounary . "\r\n";
