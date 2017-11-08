@@ -1,5 +1,5 @@
 <?php
-ini_set('max_execution_time', 120);
+ini_set('max_execution_time', 60);
 if(!require('config/config.php')) {
     echo ("cd=630\n");
     echo ("msg=Configuration file not found.\n");
