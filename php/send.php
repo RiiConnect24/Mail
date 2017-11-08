@@ -226,7 +226,7 @@ foreach($mails as $mail)
 }
 
 require 'config/core.php';
-$anarray = array (
+/*$anarray = array (
 	'v'	=>	1,
 	't'	=>	'event',
     'aip'	=>	1,
@@ -239,7 +239,7 @@ $anarray = array (
 	'ev'	=>	count($mails),
 );
 
-file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);
+file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);*/
 
 
 echo ("cd=100\n");
