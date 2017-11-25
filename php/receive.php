@@ -58,8 +58,8 @@ for ($i = 0; $i < count($mails2); $i++)
 	$stmt->bind_param('s', $mails2[$i]['mail_id']);
 	if (!$stmt->execute()) error_log('Warning: Failed to mark mail as sent');
 }
-require 'config/core.php';
-/*$anarray = array (
+/*require 'config/core.php';
+$anarray = array (
     'v'	=>	1,
     't'	=>	'event',
     'aip'	=>	1,
