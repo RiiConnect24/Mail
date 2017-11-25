@@ -1,5 +1,5 @@
 <?php
-require 'mysql.php'; //Load MySQL
+include "../php/config/config.php"; //Load MySQL
 $db = connectMySQL();
 
 $stmt = $db->query('UPDATE `mails` SET `sent` = 0 WHERE `sent` != 0');

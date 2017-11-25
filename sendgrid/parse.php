@@ -26,12 +26,12 @@ $envelope = array(
 $body = array();
 $body[] = ['type' => TYPEMULTIPART, 'subtype' => 'mixed']; // mark as multipart message (even without an image it should be fine, but is required to have images)
 $body[] = ['charset' => 'utf-8', 'type' => TYPETEXT, 'subtype' => 'plain', 'description' => 'wiimail', 'contents.data' => $_POST['text']]; // text portion
-error_log('attachment info: ' . json_encode($_POST['attachment-info']));
+// error_log('attachment info: ' . json_encode($_POST['attachment-info']));
 
 // handle images, if they exist
 
 $attachmentInfo = json_decode($_POST['attachment-info'], true);
-error_log('attachment info encoded to JSON: ' . json_encode($attachmentInfo));
+// error_log('attachment info encoded to JSON: ' . json_encode($attachmentInfo));
 
 foreach($attachmentInfo as $key => $info)
 {
