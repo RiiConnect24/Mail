@@ -13,7 +13,12 @@ if(!require('config/config.php')) {
 require_once 'vendor/autoload.php';
 $client = (new Raven_Client($sentryurl))->install();
 
- // Load MySQL
+// Load MySQL
+
+/* Explanation
+* If we use delete properly, it lets us off with receive.php sending *every single mail in the server* to the Wii
+* The Wii can just say "delete x mail" instead of deleting all.
+*/
 
 $db = connectMySQL();
 $wii_id = substr($_POST['mlid'], 1);
@@ -26,9 +31,4 @@ if ($stmt->execute())
 	echo ("msg=Success.\n");
 	echo ("deletenum=" . $_POST['delnum'] . "\n");
 }
-
-/* Explanation
-* If we use delete properly, it lets us off with receive.php sending *every single mail in the server* to the Wii
-* The Wii can just say "delete x mail" instead of deleting all.
-*/
 ?>
