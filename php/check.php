@@ -42,20 +42,6 @@ function generateRandomString($length = 33, $mode)
 	return $randomString;
 }
 
-/*require 'config/core.php';
-$anarray = array (
-    'v'	=>	1,
-    'aip'	=>	1,
-    'uip'	=>	get_ip(),
-    'tid'	=>	$tid, //Set in Config
-    'ds'	=>	'script',
-    'uid'	=>	hash('sha256', $_POST['mlchkid']),
-    'ec'	=>	'script',
-    'ea'	=>	'chck',
-);
-
-file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);*/
-
 $hmac_key = "ce4cf29a3d6be1c2619172b5cb298c8972d450ad";
 
 echo ("cd=" . "100" . "\n");

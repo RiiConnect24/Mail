@@ -58,21 +58,6 @@ for ($i = 0; $i < count($mails2); $i++)
 	$stmt->bind_param('s', $mails2[$i]['mail_id']);
 	if (!$stmt->execute()) error_log('Warning: Failed to mark mail as sent');
 }
-/*require 'config/core.php';
-$anarray = array (
-    'v'	=>	1,
-    't'	=>	'event',
-    'aip'	=>	1,
-    'uip'	=>	get_ip(),
-    'tid'	=>	$tid, //Set in Config
-    'ds'	=>	'script',
-    'uid'	=>	hash('sha256', $mlid),
-    'ec'	=>	'script',
-    'ea'	=>	'recv',
-    'ev'	=>	count($mailnum),
-);
-
-file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);*/
 
 header("Content-Type: multipart/mixed; boundary=" . $wc24mimebounary);
 echo "--" . $wc24mimebounary . "\r\n";

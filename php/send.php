@@ -224,22 +224,6 @@ foreach($mails as $mail)
 	}
 }
 
-require 'config/core.php';
-/*$anarray = array (
-	'v'	=>	1,
-	't'	=>	'event',
-    'aip'	=>	1,
-    'uip'	=>	get_ip(),
-	'tid'	=>	$tid, //Set in Config
-	'ds'	=>	'script',
-	'uid'	=>	'Unset',
-	'ec'	=>	'script',
-	'ea'	=>	'send',
-	'ev'	=>	count($mails),
-);
-
-file_get_contents("https://www.google-analytics.com/collect?").http_build_query($anarray);*/
-
 
 echo ("cd=100\n");
 echo ("msg=Success.\n");
