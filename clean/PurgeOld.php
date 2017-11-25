@@ -1,5 +1,5 @@
 <?php
-require 'mysql.php'; //Load MySQL
+include "../php/config/config.php"; //Load MySQL
 $db = connectMySQL();
 
 if(!$db->query('DELETE FROM `mails` WHERE `sent` != 1 AND `timestamp` < NOW() - INTERVAL 28 DAY')) {
